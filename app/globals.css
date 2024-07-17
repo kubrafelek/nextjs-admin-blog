@@ -30,3 +30,42 @@ body {
     text-wrap: balance;
   }
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.blog-content {
+  padding: 36px 0;
+}
+
+.blog-content b{
+  padding: 36px 0;
+}
+
+.blog-content p{
+  padding: 36px 0;
+}
+
+.blog-content h1{
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 26px;
+}
+
+.blog-content h2{
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.blog-content h3{
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 18px;
+}

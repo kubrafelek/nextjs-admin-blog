@@ -1,5 +1,5 @@
 "use client";
-import { assets, blog_data } from "@/Assets/assets";
+import { assets } from "@/Assets/assets";
 import Footer from "@/Components/Footer";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,13 +9,12 @@ const page = ({ params }) => {
   const [data, setData] = useState(null);
 
   const fetchBlogData = async () => {
-    for (let i = 0; i < blog_data.length; i++) {
-      if (Number(params.id) === blog_data[i].id) {
-        setData(blog_data[i]);
-        console.log(blog_data[i]);
-        break;
-      }
-    }
+    const response = await axios.get("/api/blog/", {
+      params: {
+        params: { id: params.id },
+      },
+    });
+    setData(response.data.blog);
   };
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const page = ({ params }) => {
           </h1>
           <Image
             className="mx-auto mt-6 border border-white rounded-full"
-            src={data.author_img}
+            src={data.authorImg}
             width={60}
             height={60}
             alt=""
@@ -63,53 +62,11 @@ const page = ({ params }) => {
           height={720}
           alt=""
         />
-        <h1 className="my-8 text-[26px] font-semibold">Introduction:</h1>
-        <p className="text-lg">{data.description}</p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 1: Self-reflection and Goal
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, at?
-          Ipsa odio, est placeat itaque nemo doloremque quisquam blanditiis
-          exercitationem dolorem odit, sunt voluptate molestiae officia
-          veritatis! Cupiditate, dicta voluptatibus?
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, at?
-          Ipsa odio, est placeat itaque nemo doloremque quisquam blanditiis
-          exercitationem dolorem odit, sunt voluptate molestiae officia
-          veritatis! Cupiditate, dicta voluptatibus?
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 2: Self-reflection and Goal
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, at?
-          Ipsa odio, est placeat itaque nemo doloremque quisquam blanditiis
-          exercitationem dolorem odit, sunt voluptate molestiae officia
-          veritatis! Cupiditate, dicta voluptatibus?
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, at?
-          Ipsa odio, est placeat itaque nemo doloremque quisquam blanditiis
-          exercitationem dolorem odit, sunt voluptate molestiae officia
-          veritatis! Cupiditate, dicta voluptatibus?
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 3: Self-reflection and Goal
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, at?
-          Ipsa odio, est placeat itaque nemo doloremque quisquam blanditiis
-          exercitationem dolorem odit, sunt voluptate molestiae officia
-          veritatis! Cupiditate, dicta voluptatibus?
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, at?
-          Ipsa odio, est placeat itaque nemo doloremque quisquam blanditiis
-          exercitationem dolorem odit, sunt voluptate molestiae officia
-          veritatis! Cupiditate, dicta voluptatibus?
-        </p>
+
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: data.description }}
+        ></div>
 
         <div className="my-24">
           <p className="text-black font font-semibold my-4">
